@@ -1,0 +1,35 @@
+@prefix o:    <https://example.org/regiostar/ontology/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://example.org/regiostar/ontology>
+    a owl:Ontology ;
+    rdfs:label "RegioStaR-Ontologie"@de .
+
+o:RegioStaRScheme
+    a owl:Class ;
+    rdfs:label "RegioStaR-Klassifikationsschema"@de ;
+    rdfs:subClassOf skos:ConceptScheme .
+
+o:RegioStaRType
+    a owl:Class ;
+    rdfs:label "RegioStaR-Raumtyp"@de ;
+    rdfs:subClassOf skos:Concept .
+
+o:aggregates
+    a owl:ObjectProperty ;
+    rdfs:label "aggregiert"@de ;
+    rdfs:comment "Verknüpft einen gröberen RegioStaR-Typ mit einem darin zusammengefassten feineren Typ eines anderen Klassifikationsschemas."@de ;
+    rdfs:domain o:RegioStaRType ;
+    rdfs:range o:RegioStaRType ;
+    rdfs:subPropertyOf skos:narrowMatch ;
+    owl:inverseOf o:isAggregatedBy .
+
+o:isAggregatedBy
+    a owl:ObjectProperty ;
+    rdfs:label "wird aggregiert durch"@de ;
+    rdfs:domain o:RegioStaRType ;
+    rdfs:range o:RegioStaRType ;
+    rdfs:subPropertyOf skos:broadMatch ;
+    owl:inverseOf o:aggregates .

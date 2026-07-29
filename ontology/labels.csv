@@ -1,0 +1,67 @@
+﻿scheme,code,label_de
+RegioStaR2,1,Stadtregion
+RegioStaR2,2,Ländliche Region
+RegioStaR4,11,Metropolitane Stadtregion
+RegioStaR4,12,Regiopolitane Stadtregion
+RegioStaR4,21,Stadtregionsnahe ländliche Region
+RegioStaR4,22,Periphere ländliche Region
+RegioStaR5,51,Stadtregionen - Metropolen
+RegioStaR5,52,Stadtregionen - Regiopolen und Großstädte
+RegioStaR5,53,Stadtregionen - Umland
+RegioStaR5,54,"Ländliche Regionen - Städte, städtischer Raum"
+RegioStaR5,55,"Ländliche Regionen - Kleinstädtischer, dörflicher Raum"
+RegioStaR7,71,Metropolen
+RegioStaR7,72,Regiopolen und Großstädte
+RegioStaR7,73,"Mittelstädte, städtischer Raum einer Stadtregion"
+RegioStaR7,74,"Kleinstädtischer, dörflicher Raum einer Stadtregion"
+RegioStaR7,75,Zentrale Städte einer ländlichen Region
+RegioStaR7,76,"Mittelstädte, städtischer Raum"
+RegioStaR7,77,"Kleinstädtischer, dörflicher Raum einer ländlichen Region"
+RegioStaR17,111,Metropole
+RegioStaR17,112,Großstadt einer Metropolitanen Stadtregion
+RegioStaR17,113,Mittelstadt einer Metropolitanen Stadtregion
+RegioStaR17,114,Städtischer Raum einer Metropolitanen Stadtregion
+RegioStaR17,115,"Kleinstädtischer, dörflicher Raum einer Metropolitanen Stadtregion"
+RegioStaR17,121,Regiopole
+RegioStaR17,123,Mittelstadt einer Regiopolitanen Stadtregion
+RegioStaR17,124,Städtischer Raum einer Regiopolitanen Stadtregion
+RegioStaR17,125,"Kleinstädtischer, dörflicher Raum ein$er Regiopolitanen Stadtregion"
+RegioStaR17,211,Zentrale Stadt einer Stadtregionsnahen ländlichen Region
+RegioStaR17,213,Mittelstadt einer Stadtregionsnahen ländlichen Region
+RegioStaR17,214,Städtischer Raum einer Stadtregionsnahen ländlichen Region
+RegioStaR17,215,"Kleinstädtischer, dörflicher Raum einer Stadtregionsnahen ländlichen Region"
+RegioStaR17,221,Zentrale Stadt einer Peripheren ländlichen Region
+RegioStaR17,223,Mittelstadt einer Peripheren ländlichen Region
+RegioStaR17,224,Städtischer Raum einer Peripheren ländlichen Region
+RegioStaR17,225,"Kleinstädtischer, dörflicher Raum einer Peripheren ländlichen Region"
+RegioStaR17-plus,112,Großstadt einer Metropolitanen Stadtregion
+RegioStaR17-plus,113,Mittelstadt einer Metropolitanen Stadtregion
+RegioStaR17-plus,114,Städtischer Raum einer Metropolitanen Stadtregion
+RegioStaR17-plus,115,"Kleinstädtischer, dörflicher Raum einer Metropolitanen Stadtregion"
+RegioStaR17-plus,121,Regiopole
+RegioStaR17-plus,123,Mittelstadt einer Regiopolitanen Stadtregion
+RegioStaR17-plus,124,Städtischer Raum einer Regiopolitanen Stadtregion
+RegioStaR17-plus,125,"Kleinstädtischer, dörflicher Raum einer Regiopolitanen Stadtregion"
+RegioStaR17-plus,211,Zentrale Stadt einer Stadtregionsnahen ländlichen Region
+RegioStaR17-plus,213,Mittelstadt einer Stadtregionsnahen ländlichen Region
+RegioStaR17-plus,214,Städtischer Raum einer Stadtregionsnahen ländlichen Region
+RegioStaR17-plus,215,"Kleinstädtischer, dörflicher Raum einer Stadtregionsnahen ländlichen Region"
+RegioStaR17-plus,221,Zentrale Stadt einer Peripheren ländlichen Region
+RegioStaR17-plus,223,Mittelstadt einer Peripheren ländlichen Region
+RegioStaR17-plus,224,Städtischer Raum einer Peripheren ländlichen Region
+RegioStaR17-plus,225,"Kleinstädtischer, dörflicher Raum einer Peripheren ländlichen Region"
+RegioStaR17-plus,1111,Innenstadt einer Metropole
+RegioStaR17-plus,1112,Innenstadtrand einer Metropole
+RegioStaR17-plus,1113,Stadtrand einer Metropole
+RegioStaRGem7,1,Metropole
+RegioStaRGem7,2,Regiopole
+RegioStaRGem7,3,Großstadt
+RegioStaRGem7,4,Zentrale Stadt
+RegioStaRGem7,5,Mittelstadt
+RegioStaRGem7,6,Städtischer Raum
+RegioStaRGem7,7,Kleinstädtischer / dörflicher Raum
+RegioStaRGem5,1,Metropole
+RegioStaRGem5,2,"Regiopole, Großstadt"
+RegioStaRGem5,3,"Zentrale Stadt, Mittelstadt"
+RegioStaRGem5,4,Städtischer Raum
+RegioStaRGem5,5,Kleinstädtischer / dörflicher Raum
