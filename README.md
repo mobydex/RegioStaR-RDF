@@ -1,6 +1,9 @@
 # RegioStaR-RDF
 RDFization of the RegioStaR Dataset - including taxonomy, labels and geometries.
 
+Source of polygons:
+https://gdz.bkg.bund.de/index.php/default/verwaltungsgebiete-1-250-000-mit-einwohnerzahlen-stand-31-12-vg250-ew-31-12.html
+https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2021/
 
 
 ## Useful SPARQL Queries
