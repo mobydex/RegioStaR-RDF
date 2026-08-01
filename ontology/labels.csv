@@ -53,15 +53,15 @@ RegioStaR17-plus,225,"Kleinstädtischer, dörflicher Raum einer Peripheren länd
 RegioStaR17-plus,1111,Innenstadt einer Metropole
 RegioStaR17-plus,1112,Innenstadtrand einer Metropole
 RegioStaR17-plus,1113,Stadtrand einer Metropole
-RegioStaRGem7,1,Metropole
-RegioStaRGem7,2,Regiopole
-RegioStaRGem7,3,Großstadt
-RegioStaRGem7,4,Zentrale Stadt
-RegioStaRGem7,5,Mittelstadt
-RegioStaRGem7,6,Städtischer Raum
-RegioStaRGem7,7,Kleinstädtischer / dörflicher Raum
-RegioStaRGem5,1,Metropole
-RegioStaRGem5,2,"Regiopole, Großstadt"
-RegioStaRGem5,3,"Zentrale Stadt, Mittelstadt"
-RegioStaRGem5,4,Städtischer Raum
-RegioStaRGem5,5,Kleinstädtischer / dörflicher Raum
+RegioStaRGem7,71,Metropole
+RegioStaRGem7,72,Regiopole
+RegioStaRGem7,73,Großstadt
+RegioStaRGem7,74,Zentrale Stadt
+RegioStaRGem7,75,Mittelstadt
+RegioStaRGem7,76,Städtischer Raum
+RegioStaRGem7,77,Kleinstädtischer / dörflicher Raum
+RegioStaRGem5,51,Metropole
+RegioStaRGem5,52,"Regiopole, Großstadt"
+RegioStaRGem5,53,"Zentrale Stadt, Mittelstadt"
+RegioStaRGem5,54,Städtischer Raum
+RegioStaRGem5,55,Kleinstädtischer / dörflicher Raum

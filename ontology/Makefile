@@ -19,10 +19,14 @@ target: ## mkdir target
 target/labels.ttl: labels.csv labels.tarql | target ## RDFize RegioStaR labels
 	$(SANSA_TARQL) /data/labels.tarql /data/labels.csv --out-format turtle/blocks > target/labels.ttl
 
+target/properties.ttl: labels.csv properties.tarql | target ## RDFize RegioStaR properties
+	$(SANSA_TARQL) /data/properties.tarql /data/labels.csv --out-format turtle/blocks > target/properties.ttl
+
 target/aggregates.ttl: aggregates.csv aggregates.tarql | target ## RDFize RegioStaR aggregates
 	$(SANSA_TARQL) /data/aggregates.tarql /data/aggregates.csv --out-format turtle/blocks > target/aggregates.ttl
 
-all: target/labels.ttl target/aggregates.ttl
+all: target/labels.ttl target/aggregates.ttl target/properties.ttl ## Create all RDF files
 
-clean:
-	rm target/labels.ttl target/aggregates.ttl
+clean: ## Remove all generated RDF files
+	rm -f target/labels.ttl target/aggregates.ttl target/properties.ttl
+

@@ -1,0 +1,37 @@
+PREFIX rrr:  <https://data.aksw.org/regiostar/>
+PREFIX rro:  <https://data.aksw.org/regiostar/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+
+# Not really needed unless you want rro:hasRegioStaRTypeX properties.
+# The model is:
+# rrr:region rro:type ?concept
+# ?concept in scheme rro:scheme4
+
+CONSTRUCT {
+  rro:type
+    a rdf:Property ;
+    .
+
+#  rro:hasRegioStaRType
+#    a rro:RegioStaRTypeProperty ;
+#    .
+
+#  ?typeProperty
+#    rdfs:subPropertyOf rro:hasRegioStaRType ;
+#    rro:type ?shortScheme ;
+#    rdfs:label ?labelEn ;
+#    rdfs:label ?labelDe ;
+#    .
+}
+WHERE {
+  BIND(REPLACE(?scheme, "^RegioStaR", "", "i") AS ?shortScheme)
+
+  # rro:hasRegioStaRType17
+  BIND(IRI(CONCAT(STR(rro:), "hasRegioStaRType", ENCODE_FOR_URI(?shortScheme))) AS ?typeProperty)
+
+  BIND(STRLANG(CONCAT("has RegioStaR type ", ?shortScheme), "en") AS ?labelEn)
+  BIND(STRLANG(CONCAT("hat RegioStaR Raumtyp ", ?shortScheme), "de") AS ?labelDe)
+}
+

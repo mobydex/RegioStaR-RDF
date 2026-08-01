@@ -2,6 +2,7 @@ PREFIX dct:  <http://purl.org/dc/terms/>
 PREFIX geo:  <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 PREFIX dcatde: <http://dcat-ap.de/def/dcatde/>
 
@@ -15,18 +16,21 @@ CONSTRUCT {
   ?municipality
     a geo:Feature ;
     dct:identifier ?ags_0 ;
+    rdfs:label ?municipalityLabel ;
     skos:prefLabel ?municipalityLabel ;
     rro:regionalKey ?regionalKey ;
     #ex:nutsRegion ?nutsRegion ;
     sdmx-dimension:refPeriod ?year ;
 
-    rro:regioStaR2 ?RegioStaR2_iri ;
-    rro:regioStaR4 ?RegioStaR4_iri ;
-    rro:regioStaR17 ?RegioStaR17_iri ;
-    rro:regioStaR7 ?RegioStaR7_iri ;
-    rro:regioStaR5 ?RegioStaR5_iri ;
-    rro:regioStaRGem7 ?RegioStaRGem7_iri ;
-    rro:regioStaRGem5 ?RegioStaRGem5_iri ;
+    rro:type ?RegioStaR2_iri, ?RegioStaR4_iri, ?RegioStaR5_iri, ?RegioStaR7_iri, ?RegioStaR17_iri, ?RegioStaRGem7_iri, ?RegioStaRGem5_iri ;
+
+    # rro:hasRegioStaRType2 ?RegioStaR2_iri ;
+    # rro:hasRegioStaRType4 ?RegioStaR4_iri ;
+    # rro:hasRegioStaRType5 ?RegioStaR5_iri ;
+    # rro:hasRegioStaRType7 ?RegioStaR7_iri ;
+    # rro:hasRegioStaRType17 ?RegioStaR17_iri ;
+    # rro:hasRegioStaRGem7 ?RegioStaRGem7_iri ;
+    # rro:hasRegioStaRGem5 ?RegioStaRGem5_iri ;
 
     geo:hasGeometry ?geometryResource .
 
@@ -52,23 +56,22 @@ WHERE {
   BIND(STRLANG(?name_21, "de") AS ?municipalityLabel)
   BIND(IRI(CONCAT("http://dcat-ap.de/def/politicalGeocoding/regionalKey/", ?ars_0)) AS ?regionalKey)
 
-  #BIND(IRI(CONCAT("http://dcat-ap.de/def/politicalGeocoding/regionalKey/", ?gemrs_21)) AS ?regionalKey)
-  #BIND(IRI(CONCAT("https://data.europa.eu/nuts/code/", ?nuts)) AS ?nutsRegion)
+  # BIND(IRI(CONCAT("http://dcat-ap.de/def/politicalGeocoding/regionalKey/", ?gemrs_21)) AS ?regionalKey)
+  # BIND(IRI(CONCAT("https://data.europa.eu/nuts/code/", ?nuts)) AS ?nutsRegion)
   
-  #BIND(IRI(CONCAT(STR(rrr:), "RegioStaR2/", ?RegioStaR2)) AS ?RegioStaR2_iri)
-  #BIND(IRI(CONCAT(STR(rrr:), "RegioStaR4/", ?RegioStaR4)) AS ?RegioStaR4_iri)
-  #BIND(IRI(CONCAT(STR(rrr:), "RegioStaR5/", ?RegioStaR5)) AS ?RegioStaR5_iri)
-  #BIND(IRI(CONCAT(STR(rrr:), "RegioStaR7/", ?RegioStaR7)) AS ?RegioStaR7_iri)
-  #BIND(IRI(CONCAT(STR(rrr:), "RegioStaR17/", ?RegioStaR17)) AS ?RegioStaR17_iri)
+  # BIND(IRI(CONCAT(STR(rrr:), "RegioStaR2/", ?RegioStaR2)) AS ?RegioStaR2_iri)
+  # BIND(IRI(CONCAT(STR(rrr:), "RegioStaR4/", ?RegioStaR4)) AS ?RegioStaR4_iri)
+  # BIND(IRI(CONCAT(STR(rrr:), "RegioStaR5/", ?RegioStaR5)) AS ?RegioStaR5_iri)
+  # BIND(IRI(CONCAT(STR(rrr:), "RegioStaR7/", ?RegioStaR7)) AS ?RegioStaR7_iri)
+  # BIND(IRI(CONCAT(STR(rrr:), "RegioStaR17/", ?RegioStaR17)) AS ?RegioStaR17_iri)
 
-  BIND(IRI(CONCAT(STR(rrr:), "concept/2/", ?RegioStaR2)) AS ?RegioStaR2_iri)
-  BIND(IRI(CONCAT(STR(rrr:), "concept/4/", ?RegioStaR4)) AS ?RegioStaR4_iri)
-  BIND(IRI(CONCAT(STR(rrr:), "concept/5/", ?RegioStaR5)) AS ?RegioStaR5_iri)
-  BIND(IRI(CONCAT(STR(rrr:), "concept/7/", ?RegioStaR7)) AS ?RegioStaR7_iri)
-  BIND(IRI(CONCAT(STR(rrr:), "concept/17/", ?RegioStaR17)) AS ?RegioStaR17_iri)
-
-  BIND(IRI(CONCAT(STR(rrr:), "concept/gem7/", ?RegioStaRGem7)) AS ?RegioStaRGem7_iri)
-  BIND(IRI(CONCAT(STR(rrr:), "concept/gem5/", ?RegioStaRGem5)) AS ?RegioStaRGem5_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/2/", ?RegioStaR2)) AS ?RegioStaR2_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/4/", ?RegioStaR4)) AS ?RegioStaR4_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/5/", ?RegioStaR5)) AS ?RegioStaR5_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/7/", ?RegioStaR7)) AS ?RegioStaR7_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/17/", ?RegioStaR17)) AS ?RegioStaR17_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/Gem7/", ?RegioStaRGem7)) AS ?RegioStaRGem7_iri)
+  BIND(IRI(CONCAT(STR(rro:), "concept/Gem5/", ?RegioStaRGem5)) AS ?RegioStaRGem5_iri)
 
   # BIND(IRI(CONCAT(STR(rrr:), "geometry/", ENCODE_FOR_URI(?objid))) AS ?geometryResource)
 
