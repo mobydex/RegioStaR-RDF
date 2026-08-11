@@ -1,8 +1,11 @@
 # RegioStaR-RDF
 
 <p align="center">
-  <img src="docs/images/20260811-regiostar-linkeddata.png" width="400" alt="RegioStaR LinkedData"/>
-  <img src="docs/images/20260811-regiostar-sparql.png" width="400" alt="RegioStaR SPARQL"/>
+  <img src="docs/images/20260811-regiostar-linkeddata.png" width="400" alt="RegioStaR LinkedData"/><br/>
+  <small>Linked Data View</small>
+  &nbsp;&nbsp;&nbsp;
+  <img src="docs/images/20260811-regiostar-sparql.png" width="400" alt="RegioStaR SPARQL"/><br/>
+  <small>SPARQL View</small>
 </p>
 
 RDFization of the RegioStaR Dataset - including taxonomy, labels and geometries.
