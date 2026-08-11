@@ -1,4 +1,8 @@
 # RegioStaR-RDF
+
+![RegioStaR LinkedData](docs/images/20260811-regiostar-linkeddata.png)
+![RegioStaR SPARQL](docs/images/20260811-regiostar-sparql.png)
+
 RDFization of the RegioStaR Dataset - including taxonomy, labels and geometries.
 
 Source of polygons:
