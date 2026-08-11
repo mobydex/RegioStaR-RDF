@@ -1,0 +1,29 @@
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX rro: <https://schema.aksw.org/regiostar/>
+
+PREFIX r:   <https://data.aksw.org/bkg/>
+PREFIX rrr: <https://data.aksw.org/regiostar/>
+
+CONSTRUCT {
+  ?feature
+    geo:hasGeometry ?geometryRecord ; # Must avoid clash with ?geometry column from the CSV.
+    .
+
+  ?geometryRecord
+    rro:ags0 ?AGS_0 ;
+    rro:ars0 ?ARS_0 ;
+    r:objectId ?OBJID ;
+    geo:asWKT ?wkt ;
+    .
+}
+WHERE {
+  BIND("2021"^^xsd:gYear AS ?year)
+
+  #BIND(IRI(CONCAT("http://dcat-ap.de/def/politicalGeocoding/regionalKey/", ?ARS_0)) AS ?feature)
+  BIND(IRI(CONCAT(STR(rrr:), "regionalKey/", STR(?year), "/", ?ARS_0)) AS ?feature)
+  BIND(IRI(CONCAT(STR(r:), "object/", ENCODE_FOR_URI(?OBJID))) AS ?geometryRecord)
+  BIND(STRDT(?geometry, geo:wktLiteral) AS ?wkt)
+}
+

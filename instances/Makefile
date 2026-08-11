@@ -9,7 +9,7 @@ MCCS = $(MS) clean compile
 VER = $(error specify VER=releasefile-name e.g. VER=1.9.7-rc2)
 loud = echo "@@" $(1);$(1)
 
-TARQL = docker run --rm -i -v "$$(pwd):/data" mikulas/tarql
+TARQL = docker run --rm -i -v "$$(pwd):/data" mikulas/tarql -e 'utf-8'
 
 # Source: https://stackoverflow.com/questions/4219255/how-do-you-get-the-list-of-targets-in-a-makefile
 .PHONY: help all clean
@@ -29,7 +29,8 @@ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx: | target/downloa
 	mv target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx.tmp target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx
 
 target/regiostar-2021.ttl: target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx regiostar-2021.tarql ## RDFize RegioStaR 2021
-	ogr2ogr -f CSV /vsistdout/ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx ReferenzGebietsstand2021 -s_srs OGC:CRS84 -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/regiostar-2021.tarql > target/regiostar-2021.ttl
+	ogr2ogr -f CSV /vsistdout/ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx ReferenzGebietsstand2021 -s_srs OGC:CRS84 -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry > target/regiostar-2021.csv
+	cat target/regiostar-2021.csv | $(TARQL) --stdin /data/regiostar-2021.tarql > target/regiostar-2021.ttl
 
 # target/2024_RegioStaR-Referenzdateien_Mobilthek.csv
 
@@ -41,8 +42,8 @@ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg: tar
 	# Note: -DD Sets the file creation date to the extraction data (i.e. now) rather than the archived date
 	unzip -DD -d target -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip
 
-target/geometries.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg geometries.tarql
-	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries.tarql > target/geometries.ttl
+target/geometries.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg geometries-2021.tarql
+	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2021.tarql > target/geometries.ttl
 
 #target/opendata.hessen.de.ttl: | target ## download
 #	rpt integrate -e remote --loc https://sparql.opendata.hessen.de/odp-hessen/ spo.rq --out-file target/opendata.hessen.de.ttl
@@ -63,4 +64,4 @@ target/geometries.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_
 all: target/regiostar-2021.ttl target/geometries.ttl
 
 clean:
-	rm target/regiostar-2021.ttl target/geometries.ttl
+	rm -f target/regiostar-2021.ttl target/geometries.ttl
