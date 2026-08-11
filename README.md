@@ -16,30 +16,33 @@ The RDF downloads can be found in the [releases section](https://github.com/moby
 
 ## Sources and Licenses
 
-This derived RegioStaR-RDF dataset is provided under the
-[Datenlizenz Deutschland – Namensnennung – Version 2.0](https://www.govdata.de/dl-de/by-2-0).
+RegioStaR-RDF is a derived dataset created by transforming and combining the source datasets listed below. Both source datasets are made available under the [Datenlizenz Deutschland – Namensnennung – Version 2.0 (dl-de/by-2-0)](https://www.govdata.de/dl-de/by-2-0).
 
-The source code of project is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+The source data have been modified, in particular by transformation to RDF and by combining the RegioStaR classifications with administrative-area geometries. Reuse of RegioStaR-RDF is therefore subject to the licenses and attribution requirements of the respective source datasets.
+
+The source code of this project is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 ### Source 1: RegioStaR – Regionalstatistische Raumtypisierung
 
 | Field | Details |
-|-------|---------|
-| Publisher | Bundesministerium für Digitales und Verkehr |
+|---|---|
+| Provider | Bundesministerium für Digitales und Verkehr (BMDV; now Bundesministerium für Verkehr, BMV) |
 | Source | [Mobilithek](https://mobilithek.info/offers/689522949364838400) |
-| Licence | [dl-de/by-2-0](https://www.govdata.de/dl-de/by-2-0) |
-| Notes | Data transformed into RDF |
+| Licence | [Datenlizenz Deutschland – Namensnennung – Version 2.0 (dl-de/by-2-0)](https://www.govdata.de/dl-de/by-2-0) |
+| Source attribution | BMV, [RegioStaR – Regionalstatistische Raumtypisierung](https://mobilithek.info/offers/689522949364838400), [dl-de/by-2-0](https://www.govdata.de/dl-de/by-2-0) (Daten verändert) |
+| Modifications | Data transformed into RDF and combined with administrative-area geometries |
 
 ### Source 2: Verwaltungsgebiete 1:250 000 mit Einwohnerzahlen (VG250-EW)
 
 | Field | Details |
-|-------|---------|
-| territorial reference date | 31 December 2021 |
-| © BKG | (2026) dl-de/by-2-0 |
-| Source data landing page | [BKG GDZ](https://gdz.bkg.bund.de/index.php/default/verwaltungsgebiete-1-250-000-mit-einwohnerzahlen-stand-31-12-vg250-ew-31-12.html) |
-| Source data download page | [BKG Datenportal](https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2021/) |
-| Concretely used product | [vg250-ew_12-31.utm32s.gpkg.ebenen.zip](https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2021/vg250-ew_12-31.utm32s.gpkg.ebenen.zip) |
-| Notes | Data transformed into RDF |
+|---|---|
+| Territorial reference date | 31 December 2021 |
+| Source data landing page | [BKG Geodatenzentrum](https://gdz.bkg.bund.de/index.php/default/verwaltungsgebiete-1-250-000-mit-einwohnerzahlen-stand-31-12-vg250-ew-31-12.html) |
+| Source data archive | [BKG Datenportal](https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2021/) |
+| Concretely used product | `vg250-ew_12-31.utm32s.gpkg.ebenen.zip` |
+| Licence | [Datenlizenz Deutschland – Namensnennung – Version 2.0 (dl-de/by-2-0)](https://www.govdata.de/dl-de/by-2-0) |
+| Source attribution | © [BKG](https://www.bkg.bund.de) (2026) [dl-de/by-2-0](https://www.govdata.de/dl-de/by-2-0) (Daten verändert), Datenquellen: [BKG VG/NUTS data sources](https://sgx.geodatenzentrum.de/web_public/gdz/datenquellen/datenquellen_vg_nuts.pdf) |
+| Modifications | Administrative-area data transformed into RDF and combined with RegioStaR classifications |
 
 ## Useful SPARQL Queries
 
