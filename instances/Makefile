@@ -42,8 +42,8 @@ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg: tar
 	# Note: -DD Sets the file creation date to the extraction data (i.e. now) rather than the archived date
 	unzip -DD -d target -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip
 
-target/geometries.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg geometries-2021.tarql
-	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2021.tarql > target/geometries.ttl
+target/geometries-2021.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg geometries-2021.tarql
+	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2021.tarql > target/geometries-2021.ttl
 
 #target/opendata.hessen.de.ttl: | target ## download
 #	rpt integrate -e remote --loc https://sparql.opendata.hessen.de/odp-hessen/ spo.rq --out-file target/opendata.hessen.de.ttl
@@ -61,7 +61,7 @@ target/geometries.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_
 #target/stage99.ttl: | target/stage01.trig target/stage03.ttl ## merge and flatten
 #	rpt integrate target/stage01.trig target/stage03.ttl 'CONSTRUCT { ?s ?p ?o } { { ?s ?p ?o } UNION { GRAPH ?g { ?s ?p ?o } } }' --out-file target/stage99.ttl
 
-all: target/regiostar-2021.ttl target/geometries.ttl
+all: target/regiostar-2021.ttl target/geometries-2021.ttl
 
 clean:
-	rm -f target/regiostar-2021.ttl target/geometries.ttl
+	rm -f target/regiostar-2021.ttl target/geometries-2021.ttl

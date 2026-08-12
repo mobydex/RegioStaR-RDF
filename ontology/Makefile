@@ -22,13 +22,13 @@ target/code-labels.ttl: code-labels.csv code-labels.tarql | target ## RDFize Reg
 target/scheme-labels.ttl: scheme-labels.csv scheme-labels.tarql | target ## RDFize RegioStaR labels
 	$(SANSA_TARQL) /data/scheme-labels.tarql /data/scheme-labels.csv --out-format turtle/blocks > target/scheme-labels.ttl
 
-target/properties.ttl: code-labels.csv properties.tarql | target ## RDFize RegioStaR properties
-	$(SANSA_TARQL) /data/properties.tarql /data/code-labels.csv --out-format turtle/blocks > target/properties.ttl
+#target/properties.ttl: code-labels.csv properties.tarql | target ## RDFize RegioStaR properties
+#	$(SANSA_TARQL) /data/properties.tarql /data/code-labels.csv --out-format turtle/blocks > target/properties.ttl
 
 target/aggregates.ttl: aggregates.csv aggregates.tarql | target ## RDFize RegioStaR aggregates
 	$(SANSA_TARQL) /data/aggregates.tarql /data/aggregates.csv --out-format turtle/blocks > target/aggregates.ttl
 
-all: target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl target/properties.ttl ## Create all RDF files
+all: target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl ## Create all RDF files
 
 clean: ## Remove all generated RDF files
 	rm -f target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl target/properties.ttl
