@@ -1,0 +1,23 @@
+PREFIX rrr:  <https://data.aksw.org/regiostar/>
+PREFIX rro:  <https://schema.aksw.org/regiostar/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+
+CONSTRUCT {
+  ?schemeResource
+    a skos:ConceptScheme, rro:RegioStaRScheme ;
+    dct:identifier ?scheme ;
+    skos:notation ?shortSchemeCode ;
+    skos:prefLabel ?schemeLabelDe ;
+    rdfs:label ?schemeLabelDe ;
+    .
+}
+WHERE {
+  #BIND(STRLANG(?label_de, "de") AS ?labelDe)
+  BIND(REPLACE(?scheme, "^RegioStaR", "", "i") AS ?shortSchemeCode)
+  BIND(IRI(CONCAT(STR(rro:), "scheme", "/", ENCODE_FOR_URI(?shortSchemeCode))) AS ?schemeResource)
+
+  BIND(STRLANG(?label_de, "de") AS ?schemeLabelDe)
+}
+

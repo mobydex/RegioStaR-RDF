@@ -6,12 +6,12 @@ PREFIX dct:  <http://purl.org/dc/terms/>
 
 CONSTRUCT {
   ?schemeResource
-    a skos:ConceptScheme, rro:RegioStaRScheme ;
-    dct:identifier ?shortSchemeCode ;
-    skos:notation ?shortSchemeCode ;
-    skos:prefLabel ?schemeLabelDe ;
+#    a skos:ConceptScheme, rro:RegioStaRScheme ;
+#    dct:identifier ?shortSchemeCode ;
+#    skos:notation ?shortSchemeCode ;
+#    skos:prefLabel ?schemeLabelDe ;
     skos:hasTopConcept ?concept ;
-    rdfs:label ?schemeLabelDe ;
+#    rdfs:label ?schemeLabelDe ;
     .
 
   ?concept
