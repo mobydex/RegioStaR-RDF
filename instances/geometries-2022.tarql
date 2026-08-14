@@ -19,11 +19,10 @@ CONSTRUCT {
     .
 }
 WHERE {
-  BIND("2021"^^xsd:gYear AS ?year)
+  BIND("2022"^^xsd:gYear AS ?year)
 
   #BIND(IRI(CONCAT("http://dcat-ap.de/def/politicalGeocoding/regionalKey/", ?ARS_0)) AS ?feature)
   BIND(IRI(CONCAT(STR(rrr:), "regionalKey/", STR(?year), "/", ?ARS_0)) AS ?feature)
   BIND(IRI(CONCAT(STR(r:), "object/", ENCODE_FOR_URI(?OBJID))) AS ?geometryRecord)
   BIND(STRDT(?geometry, geo:wktLiteral) AS ?wkt)
 }
-
