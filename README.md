@@ -43,6 +43,75 @@ The source code of this project is licensed under the [Apache License, Version 2
 | Licence | [Datenlizenz Deutschland – Namensnennung – Version 2.0 (dl-de/by-2-0)](https://www.govdata.de/dl-de/by-2-0) |
 | Source attribution | © [BKG](https://www.bkg.bund.de) (2026) [dl-de/by-2-0](https://www.govdata.de/dl-de/by-2-0) (Daten verändert), Datenquellen: [BKG VG/NUTS data sources](https://sgx.geodatenzentrum.de/web_public/gdz/datenquellen/datenquellen_vg_nuts.pdf) |
 | Modifications | Administrative-area data transformed into RDF and combined with RegioStaR classifications |
+| Mapped subset | Only the land part of each administrative area (Geofaktor = 4); water parts (Geofaktor = 2) of coastal areas are excluded for now |
+
+## Data Model
+
+RegioStaR-RDF joins the two sources above into one linked dataset. Both key on the same 12-digit administrative-area identifier (`ARS_0`), so every RegioStaR unit maps 1:1 to exactly one VG250 land geometry.
+
+### RegioStaR features
+
+One feature resource per administrative area and reference year:
+
+- `https://data.aksw.org/regiostar/regionalKey/<year>/<ARS_0>` — a `geo:Feature` carrying that year's RegioStaR types (`rro:type` → RegioStaR concepts of schemes 2, 4 and 5), plus `rro:regionalKey` (the [dcat-ap.de](http://dcat-ap.de/def/politicalGeocoding/regionalKey/) identifier) and `sdmx-dimension:refPeriod`.
+
+### VG250 land geometries
+
+The BKG *Verwaltungsgebiete* (VG, "administrative areas") 1:250 000 layer supplies the polygon for each administrative area. VG250 tags each geometry part with a *Geofaktor* (GF): areas that extend into the North Sea, the Baltic Sea or Lake Constance are split along the coast into a **land part (GF = 4)** and a **water part (GF = 2)** (154 areas in the 2024 edition). Following the VG250 documentation's recommendation for representing administrative areas, RegioStaR-RDF maps **only the land part (GF = 4)**; water parts are excluded for now and may be published as a separate dataset later.
+
+Each RegioStaR feature therefore has exactly one geometry:
+
+```turtle
+<https://data.aksw.org/regiostar/regionalKey/2024/010010000000>
+    a geo:Feature ;
+    geo:hasGeometry <https://data.aksw.org/bkg/vg250/2024/geometry/DEBKGVG200000008> .
+
+<https://data.aksw.org/bkg/vg250/2024/geometry/DEBKGVG200000008>
+    a geo:Geometry ;
+    dct:isVersionOf <https://data.aksw.org/bkg/vg250/geometry/DEBKGVG200000008> ;
+    rro:geofactor <https://schema.aksw.org/regiostar/concept/geofactor/4> ;
+    rro:ags0 "01001000" ;
+    rro:ars0 "010010000000" ;
+    geo:asWKT "MULTIPOLYGON (...)"^^geo:wktLiteral .
+
+<https://data.aksw.org/bkg/vg250/geometry/DEBKGVG200000008>
+    a rro:BkgObject ;
+    dct:identifier "DEBKGVG200000008" .
+```
+
+### SameAs links (edition as current state)
+
+Each reference year also ships a `sameas-<year>.ttl` file. For every RegioStaR feature of that year it emits one `owl:sameAs` link to the **year-less** dcat-ap.de identifier of the same administrative area:
+
+```turtle
+<https://data.aksw.org/regiostar/regionalKey/2024/010010000000>
+    owl:sameAs <http://dcat-ap.de/def/politicalGeocoding/regionalKey/010010000000> .
+```
+
+Both sides key on the same 12-digit ARS, so the link joins the edition-specific feature to the canonical region it describes. Because the dcat-ap.de `regionalKey` IRI carries no year, loading a single edition's sameas file makes that year the **current / latest / default** view of each area: with `owl:sameAs` reasoning enabled, the edition's properties (RegioStaR types, label, geometry) merge into the shared canonical node.
+
+> **Load only one sameas file per triple store.** The dcat-ap key is shared across editions, so loading several `sameas-<year>.ttl` files at once would let `owl:sameAs` transitivity merge *all* years' features into the same canonical nodes and collapse the year distinction. Pick the single edition you want as "current".
+
+### IRI scheme
+
+| Resource | IRI | Notes |
+|---|---|---|
+| RegioStaR feature | `https://data.aksw.org/regiostar/regionalKey/<year>/<ARS_0>` | `geo:Feature`; RegioStaR types per year via `rro:type` |
+| VG250 geometry (yearly) | `https://data.aksw.org/bkg/vg250/<year>/geometry/<OBJID>` | `geo:Geometry` with `geo:asWKT`; land part only (Geofaktor = 4) |
+| VG250 base geometry | `https://data.aksw.org/bkg/vg250/geometry/<OBJID>` | `rro:BkgObject`; stable identity across years, `dct:identifier` = `OBJID` |
+| Geofactor concept | `https://schema.aksw.org/regiostar/concept/geofactor/<1-4>` | `skos:Concept` defined in the static ontology |
+
+The geometry IRIs are **year-qualified** because BKG re-derives the VG250 layer every year: the same `OBJID` can carry a different WKT in different editions. The timeless base resource (`rro:BkgObject`) provides a stable identity that groups the yearly versions via `dct:isVersionOf`.
+
+## Building
+
+Prerequisites: Docker, GDAL (`ogr2ogr`), `wget`, `unzip`. Source downloads are cached under `instances/target/downloads/`.
+
+| Target | Output |
+|---|---|
+| `make latest-year-only` | `target/regiostar-latest.ttl` — latest year (2024): RegioStaR features + VG250 land geometries + latest sameas links + static ontology (a self-contained "current state" store) |
+| `make all-years` | `target/regiostar-all-years.ttl` — all editions 2021–2024 + static ontology, **without** sameas links; also produces the four `instances/target/sameas-<year>.ttl` files — load exactly **one** of them alongside (see “SameAs links” above) |
+| `make archive` | `target/RegioStaR-RDF-<version>.tar.gz` — release archive bundling all instance `.ttl` files (RegioStaR, geometries, sameas 2021–2024) under `instances/` and all ontology `.ttl` files under `ontology/`, inside a top-level `RegioStaR-RDF-<version>/` folder |
 
 ## Useful SPARQL Queries
 
@@ -76,9 +145,19 @@ PREFIX rro: <https://schema.aksw.org/regiostar/>
 
 SELECT (geof:simplifyDp(geof:aggUnion(?wkt), 0.01) AS ?union) WHERE {
   ?s geo:hasGeometry/geo:asWKT ?wkt .
-  ?s rro:regioStaR4 ?x . ?x rdfs:label ?l
+  ?s rro:type ?x . ?x rdfs:label ?l
   # FILTER(?x = <https://data.aksw.org/regiostar/concept/2/2>) # Ländliche Region
   FILTER(?x = rrr:concept\/4\/12) # Regiopolen
 }
 ```
+
+## Acknowledgements
+
+The authors acknowledge the financial support by the German Federal
+Ministry for Digital and Transport in the Project Moby Dex (project number 19F2266A).
+
+| Field | Details |
+|---|---|
+| Project Summary | https://www.bmv.de/SharedDocs/DE/Artikel/mFUND/Projekte/moby-dex.html |
+| Project Web Page | https://mobydex.org/ |
 

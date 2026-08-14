@@ -1,0 +1,58 @@
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dct:  <http://purl.org/dc/terms/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+PREFIX vgo: <https://schema.aksw.org/bkg/vg250/>
+
+# Geofactor (GF) concept scheme from the VG250 product documentation:
+# 1 = waters without structures, 2 = waters with structures,
+# 3 = land without structure, 4 = land with structure.
+CONSTRUCT {
+  ?schemeResource
+    a skos:ConceptScheme ;
+    skos:prefLabel "Geofactor" @en ;
+    skos:prefLabel "Geofaktor" @de ;
+    skos:hasTopConcept ?concept ;
+    .
+
+  ?concept
+    a skos:Concept ;
+    dct:identifier ?identifier ;
+    skos:notation ?code ;
+    skos:prefLabel ?labelEn ;
+    skos:prefLabel ?labelDe ;
+    skos:inScheme ?schemeResource ;
+    vgo:geofactorValue ?codeInt ;
+    .
+
+  vgo:geofactor
+    a rdf:Property ;
+    rdfs:label "geofactor" @en ;
+    rdfs:label "geofaktor" @de ;
+    rdfs:comment "Geofactor of a BKG VG250 geometry part (1-4: waters/land with/without structure)." @en ;
+    .
+
+  vgo:BkgObject
+    a rdfs:Class ;
+    rdfs:label "BKG base object" @en ;
+    rdfs:label "BKG-Basisobjekt" @de ;
+    rdfs:comment "Timeless BKG administrative boundary object; yearly geometry versions link to it via dct:isVersionOf." @en ;
+    .
+
+  vgo:geofactorValue
+    a rdf:DatatypeProperty ;
+    rdfs:label "Geofactor value" @en ;
+    rdfs:label "Geofaktor-Wert" @de ;
+    .
+}
+WHERE {
+  BIND(IRI(CONCAT(STR(vgo:), "Geofactor")) AS ?schemeResource)
+  BIND(IRI(CONCAT(STR(vgo:), "geofactor/", ?code)) AS ?concept)
+  BIND(CONCAT("geofactor/", ?code) AS ?identifier)
+  BIND(STRDT(?code, xsd:integer) AS ?codeInt)
+  BIND(STRLANG(?label_en, "en") AS ?labelEn)
+  BIND(STRLANG(?label_de, "de") AS ?labelDe)
+}
+

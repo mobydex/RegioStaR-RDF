@@ -1,0 +1,21 @@
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+#PREFIX dcatde: <http://dcat-ap.de/def/dcatde/>
+PREFIX rrr:   <https://data.aksw.org/regiostar/>
+
+CONSTRUCT {
+  ?municipality owl:sameAs ?regionalKey .
+}
+WHERE {
+  BIND("2024"^^xsd:gYear AS ?year)
+
+  # Normalize gemsRs
+  BIND(SUBSTR(CONCAT("000000000000", ?gemrs_24), STRLEN(CONCAT("000000000000", ?gemrs_24)) - 11) AS ?ars_0)
+
+  # You can derive the AGS from GEMRS_21 by keeping the first five and last three characters:
+  BIND(CONCAT(SUBSTR(STR(?ars_0), 1, 5), SUBSTR(STR(?ars_0), 10, 3)) AS ?ags) 
+  BIND(IRI(CONCAT(STR(rrr:), "regionalKey/", STR(?year), "/", ?ars_0)) AS ?municipality)
+
+  BIND(IRI(CONCAT("http://dcat-ap.de/def/politicalGeocoding/regionalKey/", ?ars_0)) AS ?regionalKey)
+}
+

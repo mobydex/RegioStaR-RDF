@@ -28,8 +28,11 @@ target/scheme-labels.ttl: scheme-labels.csv scheme-labels.tarql | target ## RDFi
 target/aggregates.ttl: aggregates.csv aggregates.tarql | target ## RDFize RegioStaR aggregates
 	$(SANSA_TARQL) /data/aggregates.tarql /data/aggregates.csv --out-format turtle/blocks > target/aggregates.ttl
 
-all: target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl ## Create all RDF files
+target/geofactor-labels.ttl: geofactor-labels.csv geofactor-labels.tarql | target ## RDFize VG250 geofactor (GF) labels
+	$(SANSA_TARQL) /data/geofactor-labels.tarql /data/geofactor-labels.csv --out-format turtle/blocks > target/geofactor-labels.ttl
+
+all: target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl target/geofactor-labels.ttl ## Create all RDF files
 
 clean: ## Remove all generated RDF files
-	rm -f target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl target/properties.ttl
+	rm -f target/code-labels.ttl target/scheme-labels.ttl target/aggregates.ttl target/properties.ttl target/geofactor-labels.ttl
 
