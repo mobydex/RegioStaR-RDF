@@ -82,3 +82,13 @@ SELECT (geof:simplifyDp(geof:aggUnion(?wkt), 0.01) AS ?union) WHERE {
 }
 ```
 
+## Acknowledgements
+
+The authors acknowledge the financial support by the German Federal
+Ministry for Digital and Transport in the Project Moby Dex (project number 19F2266A).
+
+| Field | Details |
+|---|---|
+| Project Summary | https://www.bmv.de/SharedDocs/DE/Artikel/mFUND/Projekte/moby-dex.html |
+| Project Web Page | https://mobydex.org/ |
+
