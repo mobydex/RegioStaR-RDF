@@ -28,22 +28,91 @@ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx: | target/downloa
 	wget -c 'https://mobilithek.info/mdp-api/files/aux/689522949364838400/2024%20RegioStaR-Referenzdateien_Mobilthek.xlsx' -O target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx.tmp
 	mv target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx.tmp target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx
 
-target/regiostar-2021.ttl: target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx regiostar-2021.tarql ## RDFize RegioStaR 2021
+target/regiostar-2021.csv: target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx
 	ogr2ogr -f CSV /vsistdout/ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx ReferenzGebietsstand2021 -s_srs OGC:CRS84 -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry > target/regiostar-2021.csv
+
+target/regiostar-2021.ttl: target/regiostar-2021.csv regiostar-2021.tarql ## RDFize RegioStaR 2021
 	cat target/regiostar-2021.csv | $(TARQL) --stdin /data/regiostar-2021.tarql > target/regiostar-2021.ttl
+
+target/sameas-2021.ttl: target/regiostar-2021.csv sameas-2021.tarql
+	cat target/regiostar-2021.csv | $(TARQL) --stdin /data/sameas-2021.tarql > target/sameas-2021.ttl
+
+target/regiostar-2022.csv: target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx
+	ogr2ogr -f CSV /vsistdout/ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx ReferenzGebietsstand2022 -s_srs OGC:CRS84 -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry > target/regiostar-2022.csv
+
+target/regiostar-2022.ttl: target/regiostar-2022.csv regiostar-2022.tarql ## RDFize RegioStaR 2022
+	cat target/regiostar-2022.csv | $(TARQL) --stdin /data/regiostar-2022.tarql > target/regiostar-2022.ttl
+
+target/sameas-2022.ttl: target/regiostar-2022.csv sameas-2022.tarql
+	cat target/regiostar-2022.csv | $(TARQL) --stdin /data/sameas-2022.tarql > target/sameas-2022.ttl
+
+target/regiostar-2023.csv: target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx
+	ogr2ogr -f CSV /vsistdout/ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx ReferenzGebietsstand2023 -s_srs OGC:CRS84 -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry > target/regiostar-2023.csv
+
+target/regiostar-2023.ttl: target/regiostar-2023.csv regiostar-2023.tarql ## RDFize RegioStaR 2023
+	cat target/regiostar-2023.csv | $(TARQL) --stdin /data/regiostar-2023.tarql > target/regiostar-2023.ttl
+
+target/sameas-2023.ttl: target/regiostar-2023.csv sameas-2023.tarql
+	cat target/regiostar-2023.csv | $(TARQL) --stdin /data/sameas-2023.tarql > target/sameas-2023.ttl
+
+target/regiostar-2024.csv: target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx
+	ogr2ogr -f CSV /vsistdout/ target/downloads/2024_RegioStaR-Referenzdateien_Mobilthek.xlsx ReferenzGebietsstand2024 -s_srs OGC:CRS84 -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry > target/regiostar-2024.csv
+
+target/regiostar-2024.ttl: target/regiostar-2024.csv regiostar-2024.tarql ## RDFize RegioStaR 2024
+	cat target/regiostar-2024.csv | $(TARQL) --stdin /data/regiostar-2024.tarql > target/regiostar-2024.ttl
+
+target/sameas-2024.ttl: target/regiostar-2024.csv sameas-2024.tarql
+	cat target/regiostar-2024.csv | $(TARQL) --stdin /data/sameas-2024.tarql > target/sameas-2024.ttl
 
 # target/2024_RegioStaR-Referenzdateien_Mobilthek.csv
 
-target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip: | target/downloads
-	wget -c https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2021/vg250-ew_12-31.utm32s.gpkg.ebenen.zip -O target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip.tmp
-	mv target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip.tmp target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip
+target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2021.zip: | target/downloads
+	wget -c https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2021/vg250-ew_12-31.utm32s.gpkg.ebenen.zip -O target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2021.zip.tmp
+	mv target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2021.zip.tmp target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2021.zip
 
-target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg: target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip
-	# Note: -DD Sets the file creation date to the extraction data (i.e. now) rather than the archived date
-	unzip -DD -d target -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen.zip
+target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021/vg250-ew_ebenen_1231/DE_VG250_2021.gpkg: target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2021.zip
+	mkdir -p target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021/vg250-ew_ebenen_1231
+	unzip -DD -d target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021 -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2021.zip
+	cp target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021/vg250-ew_ebenen_1231/DE_VG250_2021.gpkg
 
-target/geometries-2021.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg geometries-2021.tarql
-	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2021.tarql > target/geometries-2021.ttl
+target/geometries-2021.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021/vg250-ew_ebenen_1231/DE_VG250_2021.gpkg geometries-2021.tarql
+	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen_2021/vg250-ew_ebenen_1231/DE_VG250_2021.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2021.tarql > target/geometries-2021.ttl
+
+target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2022.zip: | target/downloads
+	wget -c https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2022/vg250-ew_12-31.utm32s.gpkg.ebenen.zip -O target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2022.zip.tmp
+	mv target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2022.zip.tmp target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2022.zip
+
+target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022/vg250-ew_ebenen_1231/DE_VG250_2022.gpkg: target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2022.zip
+	mkdir -p target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022/vg250-ew_ebenen_1231
+	unzip -DD -d target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022 -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2022.zip
+	cp target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022/vg250-ew_ebenen_1231/DE_VG250_2022.gpkg
+
+target/geometries-2022.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022/vg250-ew_ebenen_1231/DE_VG250_2022.gpkg geometries-2022.tarql
+	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen_2022/vg250-ew_ebenen_1231/DE_VG250_2022.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2022.tarql > target/geometries-2022.ttl
+
+target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2023.zip: | target/downloads
+	wget -c https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2023/vg250-ew_12-31.utm32s.gpkg.ebenen.zip -O target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2023.zip.tmp
+	mv target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2023.zip.tmp target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2023.zip
+
+target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023/vg250-ew_ebenen_1231/DE_VG250_2023.gpkg: target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2023.zip
+	mkdir -p target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023/vg250-ew_ebenen_1231
+	unzip -DD -d target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023 -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2023.zip
+	cp target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023/vg250-ew_ebenen_1231/DE_VG250_2023.gpkg
+
+target/geometries-2023.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023/vg250-ew_ebenen_1231/DE_VG250_2023.gpkg geometries-2023.tarql
+	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen_2023/vg250-ew_ebenen_1231/DE_VG250_2023.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2023.tarql > target/geometries-2023.ttl
+
+target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2024.zip: | target/downloads
+	wget -c https://daten.gdz.bkg.bund.de/produkte/vg/vg250-ew_ebenen_1231/2024/vg250-ew_12-31.utm32s.gpkg.ebenen.zip -O target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2024.zip.tmp
+	mv target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2024.zip.tmp target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2024.zip
+
+target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024/vg250-ew_ebenen_1231/DE_VG250_2024.gpkg: target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2024.zip
+	mkdir -p target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024/vg250-ew_ebenen_1231
+	unzip -DD -d target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024 -n target/downloads/vg250-ew_12-31.utm32s.gpkg.ebenen_2024.zip
+	cp target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_ebenen_1231/DE_VG250.gpkg target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024/vg250-ew_ebenen_1231/DE_VG250_2024.gpkg
+
+target/geometries-2024.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024/vg250-ew_ebenen_1231/DE_VG250_2024.gpkg geometries-2024.tarql
+	ogr2ogr -f CSV /vsistdout/ target/vg250-ew_12-31.utm32s.gpkg.ebenen_2024/vg250-ew_ebenen_1231/DE_VG250_2024.gpkg VG250_GEM -t_srs OGC:CRS84 -lco GEOMETRY=AS_WKT -lco GEOMETRY_NAME=geometry | $(TARQL) --stdin /data/geometries-2024.tarql > target/geometries-2024.ttl
 
 #target/opendata.hessen.de.ttl: | target ## download
 #	rpt integrate -e remote --loc https://sparql.opendata.hessen.de/odp-hessen/ spo.rq --out-file target/opendata.hessen.de.ttl
@@ -61,7 +130,14 @@ target/geometries-2021.ttl: target/vg250-ew_12-31.utm32s.gpkg.ebenen/vg250-ew_eb
 #target/stage99.ttl: | target/stage01.trig target/stage03.ttl ## merge and flatten
 #	rpt integrate target/stage01.trig target/stage03.ttl 'CONSTRUCT { ?s ?p ?o } { { ?s ?p ?o } UNION { GRAPH ?g { ?s ?p ?o } } }' --out-file target/stage99.ttl
 
-all: target/regiostar-2021.ttl target/geometries-2021.ttl
+all: target/regiostar-2021.ttl target/sameas-2021.ttl target/geometries-2021.ttl target/regiostar-2022.ttl target/sameas-2022.ttl target/geometries-2022.ttl target/regiostar-2023.ttl target/sameas-2023.ttl target/geometries-2023.ttl target/regiostar-2024.ttl target/sameas-2024.ttl target/geometries-2024.ttl ## Process data for all years
 
 clean:
-	rm -f target/regiostar-2021.ttl target/geometries-2021.ttl
+	rm -f \
+	  target/regiostar-2021.ttl target/geometries-2021.ttl target/sameas-2021.ttl \
+          target/regiostar-2022.ttl target/geometries-2022.ttl target/sameas-2022.ttl \
+          target/regiostar-2023.ttl target/geometries-2023.ttl target/sameas-2023.ttl \
+          target/regiostar-2024.ttl target/geometries-2024.ttl target/sameas-2024.ttl
+
+
+
